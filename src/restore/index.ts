@@ -50,13 +50,13 @@ async function run(): Promise<void> {
     core.setOutput('cache-hit', String(cacheHit))
 
     if (cacheHit === true) {
-      const ln = await exec(
-        `ln -s ${p.join(cachePath, path.split('/').slice(-1)[0])} ./${path}`
+      const cp = await exec(
+        `cp -R ${p.join(cachePath, path.split('/').slice(-1)[0])} ./${path}`
       )
 
-      core.debug(ln.stdout)
-      if (ln.stderr) core.error(ln.stderr)
-      if (!ln.stderr) core.info(`Cache restored with key ${key}`)
+      core.debug(cp.stdout)
+      if (cp.stderr) core.error(cp.stderr)
+      if (!cp.stderr) core.info(`Cache restored with key ${key}`)
     } else {
       core.info(`Cache not found for ${key}`)
     }

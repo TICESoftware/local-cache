@@ -3976,11 +3976,11 @@ function run() {
             core.saveState('cache-hit', String(cacheHit));
             core.setOutput('cache-hit', String(cacheHit));
             if (cacheHit === true) {
-                const ln = yield (0, cache_1.exec)(`ln -s ${p.join(cachePath, path.split('/').slice(-1)[0])} ./${path}`);
-                core.debug(ln.stdout);
-                if (ln.stderr)
-                    core.error(ln.stderr);
-                if (!ln.stderr)
+                const cp = yield (0, cache_1.exec)(`cp -R ${p.join(cachePath, path.split('/').slice(-1)[0])} ./${path}`);
+                core.debug(cp.stdout);
+                if (cp.stderr)
+                    core.error(cp.stderr);
+                if (!cp.stderr)
                     core.info(`Cache restored with key ${key}`);
             }
             else {
